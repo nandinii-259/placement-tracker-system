@@ -1,0 +1,19 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java / Spring Boot (added now, used later)
+target/
+*.class
+application-local.properties
+
+# Node / frontend (if used later)
+node_modules/
+
+# Environment
+.env
