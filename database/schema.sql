@@ -1,0 +1,76 @@
+CREATE DATABASE placement_tracker_db;
+USE placement_tracker_db;
+
+
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN', 'STUDENT') NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE students (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL UNIQUE,
+    full_name VARCHAR(100) NOT NULL,
+    branch VARCHAR(50) NOT NULL,
+    cgpa DECIMAL(3,2) NOT NULL,
+    graduation_year INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+CREATE TABLE companies (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    description TEXT,
+    website VARCHAR(255),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE jobs (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    company_id BIGINT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    description TEXT,
+    min_cgpa DECIMAL(3,2) NOT NULL,
+    application_deadline DATE NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (company_id) REFERENCES companies(id)
+);
+
+CREATE TABLE applications (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    student_id BIGINT NOT NULL,
+    job_id BIGINT NOT NULL,
+    status ENUM('APPLIED','UNDER_REVIEW','SHORTLISTED','INTERVIEW_SCHEDULED','SELECTED','OFFERED','REJECTED') NOT NULL DEFAULT 'APPLIED',
+    rejection_reason VARCHAR(500),
+    applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (job_id) REFERENCES jobs(id),
+    UNIQUE (student_id, job_id)
+);
+
+CREATE TABLE interviews (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    application_id BIGINT NOT NULL UNIQUE,
+    scheduled_at DATETIME NOT NULL,
+    mode ENUM('ONLINE','OFFLINE') NOT NULL,
+    location_or_link VARCHAR(255),
+    outcome ENUM('PENDING','PASSED','FAILED') NOT NULL DEFAULT 'PENDING',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (application_id) REFERENCES applications(id)
+);
+
+CREATE TABLE offers (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    application_id BIGINT NOT NULL UNIQUE,
+    position_title VARCHAR(150) NOT NULL,
+    salary_ctc DECIMAL(10,2),
+    offer_date DATE NOT NULL DEFAULT (CURRENT_DATE),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (application_id) REFERENCES applications(id)
+);
