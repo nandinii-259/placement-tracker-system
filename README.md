@@ -3,7 +3,7 @@
 A full-stack college placement management system with role-based access control (Student/Admin), built with Java Spring Boot, MySQL, and vanilla HTML/CSS/JS.
 
 ## Status
-In development — currently in Phase 7: Database Connection (completed).
+In development — currently in Phase 8: Entities (completed).
 
 ## Documentation
 - [Requirements](docs/requirements.md)
@@ -12,6 +12,7 @@ In development — currently in Phase 7: Database Connection (completed).
 - [ER Diagram](docs/er-diagram.md)
 - [Spring Boot Setup](docs/spring-boot-setup.md)
 - [Database Connection](docs/database-connection.md)
+- [Entities](docs/entities.md)
 
 
 ## Database
