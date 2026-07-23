@@ -82,4 +82,7 @@ public class Job {
     public LocalDate getApplicationDeadline() {
         return applicationDeadline;
     }
+
+    public void setApplicationDeadline(LocalDate applicationDeadline) {
+    }
 }
