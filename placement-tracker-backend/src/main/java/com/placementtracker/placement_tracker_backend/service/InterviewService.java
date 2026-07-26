@@ -1,5 +1,7 @@
 package com.placementtracker.placement_tracker_backend.service;
 
+import com.placementtracker.placement_tracker_backend.exception.ResourceNotFoundException;
+import com.placementtracker.placement_tracker_backend.exception.BusinessRuleException;
 import com.placementtracker.placement_tracker_backend.entity.Application;
 import com.placementtracker.placement_tracker_backend.entity.Interview;
 import com.placementtracker.placement_tracker_backend.repository.InterviewRepository;
@@ -20,12 +22,12 @@ public class InterviewService {
         Application application = applicationService.getApplicationById(applicationId);
 
         if (application.getStatus() != Application.Status.SHORTLISTED) {
-            throw new IllegalStateException(
+            throw new BusinessRuleException(
                     "An interview can only be scheduled for a SHORTLISTED application.");
         }
 
         if (interviewRepository.findByApplicationId(applicationId).isPresent()) {
-            throw new IllegalStateException("An interview has already been scheduled for this application.");
+            throw new BusinessRuleException("An interview has already been scheduled for this application.");
         }
 
         interview.setApplication(application);
@@ -38,6 +40,6 @@ public class InterviewService {
 
     public Interview getInterviewByApplication(Long applicationId) {
         return interviewRepository.findByApplicationId(applicationId)
-                .orElseThrow(() -> new RuntimeException("No interview found for this application."));
+                .orElseThrow(() -> new ResourceNotFoundException("No interview found for this application."));
     }
 }

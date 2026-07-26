@@ -1,5 +1,6 @@
 package com.placementtracker.placement_tracker_backend.service;
 
+import com.placementtracker.placement_tracker_backend.exception.ResourceNotFoundException;
 import com.placementtracker.placement_tracker_backend.entity.Company;
 import com.placementtracker.placement_tracker_backend.entity.Job;
 import com.placementtracker.placement_tracker_backend.repository.JobRepository;
@@ -28,7 +29,7 @@ public class JobService {
 
     public Job getJobById(Long id) {
         return jobRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Job not found with id: " + id));
     }
 
     public Job createJob(Long companyId, Job job) {

@@ -1,5 +1,7 @@
 package com.placementtracker.placement_tracker_backend.service;
 
+import com.placementtracker.placement_tracker_backend.exception.ResourceNotFoundException;
+import com.placementtracker.placement_tracker_backend.exception.BusinessRuleException;
 import com.placementtracker.placement_tracker_backend.entity.Application;
 import com.placementtracker.placement_tracker_backend.entity.Job;
 import com.placementtracker.placement_tracker_backend.entity.Student;
@@ -39,15 +41,15 @@ public class ApplicationService {
         Job job = jobService.getJobById(jobId);
 
         if (applicationRepository.existsByStudentIdAndJobId(studentId, jobId)) {
-            throw new IllegalStateException("You have already applied to this job.");
+            throw new BusinessRuleException("You have already applied to this job.");
         }
 
         if (job.getApplicationDeadline().isBefore(LocalDate.now())) {
-            throw new IllegalStateException("The application deadline for this job has passed.");
+            throw new BusinessRuleException("The application deadline for this job has passed.");
         }
 
         if (student.getCgpa().compareTo(job.getMinCgpa()) < 0) {
-            throw new IllegalStateException("You do not meet the minimum CGPA requirement for this job.");
+            throw new BusinessRuleException("You do not meet the minimum CGPA requirement for this job.");
         }
 
         Application application = new Application();
@@ -64,7 +66,7 @@ public class ApplicationService {
 
         Set<Application.Status> allowedNextStatuses = VALID_TRANSITIONS.get(currentStatus);
         if (allowedNextStatuses == null || !allowedNextStatuses.contains(newStatus)) {
-            throw new IllegalStateException(
+            throw new BusinessRuleException(
                     "Cannot move application from " + currentStatus + " to " + newStatus);
         }
 
@@ -74,7 +76,7 @@ public class ApplicationService {
                                 currentStatus == Application.Status.INTERVIEW_SCHEDULED);
 
         if (isRejectionRequiringReason && (rejectionReason == null || rejectionReason.isBlank())) {
-            throw new IllegalArgumentException(
+            throw new BusinessRuleException(
                     "A rejection reason is required when rejecting a shortlisted or interviewed application.");
         }
 
@@ -88,7 +90,7 @@ public class ApplicationService {
 
     public Application getApplicationById(Long id) {
         return applicationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Application not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Application not found with id: " + id));
     }
 
     public List<Application> getApplicationsByStudent(Long studentId) {

@@ -1,5 +1,6 @@
 package com.placementtracker.placement_tracker_backend.service;
 
+import com.placementtracker.placement_tracker_backend.exception.ResourceNotFoundException;
 import com.placementtracker.placement_tracker_backend.entity.Student;
 import com.placementtracker.placement_tracker_backend.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,6 @@ public class StudentService {
 
     public Student getStudentById(Long id) {
         return studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + id));
     }
 }

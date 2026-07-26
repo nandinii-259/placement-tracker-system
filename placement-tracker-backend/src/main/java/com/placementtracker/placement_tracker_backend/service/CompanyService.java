@@ -1,5 +1,6 @@
 package com.placementtracker.placement_tracker_backend.service;
 
+import com.placementtracker.placement_tracker_backend.exception.ResourceNotFoundException;
 import com.placementtracker.placement_tracker_backend.entity.Company;
 import com.placementtracker.placement_tracker_backend.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class CompanyService {
 
     public Company getCompanyById(Long id) {
         return companyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Company not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Company not found with id: " + id));
     }
 
     public Company createCompany(Company company) {
