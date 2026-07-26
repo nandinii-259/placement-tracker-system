@@ -18,4 +18,13 @@ public class StudentService {
         return studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + id));
     }
+    public Student updateStudentProfile(Long id, String fullName, String branch, java.math.BigDecimal cgpa) {
+        Student student = getStudentById(id);
+        student.setFullName(fullName);
+        student.setBranch(branch);
+        if (cgpa != null) {
+            student.setCgpa(cgpa);
+        }
+        return studentRepository.save(student);
+    }
 }
