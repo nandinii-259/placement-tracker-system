@@ -84,5 +84,10 @@ public class Job {
     }
 
     public void setApplicationDeadline(LocalDate applicationDeadline) {
+        this.applicationDeadline = applicationDeadline;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

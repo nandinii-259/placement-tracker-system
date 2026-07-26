@@ -3,7 +3,7 @@
 A full-stack college placement management system with role-based access control (Student/Admin), built with Java Spring Boot, MySQL, and vanilla HTML/CSS/JS.
 
 ## Status
-In development — currently in Phase 11: Controllers (in progress — exception handling & Company done).
+In development — currently in Phase 11: Controllers (in progress — exception handling & Job done).
 
 ## Documentation
 - [Requirements](docs/requirements.md)
@@ -16,6 +16,8 @@ In development — currently in Phase 11: Controllers (in progress — exception
 - [Repositories](docs/repositories.md)
 - [Services - Part 1](docs/services-part1.md)
 - [Services - Part 2](docs/services-part2.md)
+- [Controllers - Part 1](docs/controllers-part1.md)
+- [Controllers - Part 2](docs/controllers-part2.md)
 
 ## Database
 - [SQL Schema](database/schema.sql)
