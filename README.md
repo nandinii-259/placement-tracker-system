@@ -26,6 +26,8 @@ In development — currently in Phase 12: Authentication and Authorization (in p
 - [Authenication - Part 1](docs/auth-part1.md)
 - [Authenication - Part 2](docs/auth-part2.md)
 - [Authenication - Part 3](docs/auth-part3.md)
+- [Authenication - Part 4](docs/auth-part4.md)
+- [Authenication - Part 5](docs/auth-part5.md)
 
 
 ## Database

@@ -2,9 +2,7 @@ package com.placementtracker.placement_tracker_backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -35,7 +33,25 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/api/companies").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/companies/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/companies/**").hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/jobs/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/jobs/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/jobs/**").hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.PATCH, "/api/applications/**").hasRole("ADMIN")
+                        .requestMatchers("/api/interviews/**").hasRole("ADMIN")
+                        .requestMatchers("/api/offers/**").hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/companies/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/jobs/**").authenticated()
+                        .requestMatchers("/api/applications/**").authenticated()
+                        .requestMatchers("/api/students/**").authenticated()
+
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
