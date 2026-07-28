@@ -27,4 +27,8 @@ public class StudentService {
         }
         return studentRepository.save(student);
     }
+    public Student getStudentByEmail(String email) {
+        return studentRepository.findByUserEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Student profile not found for this account."));
+    }
 }
