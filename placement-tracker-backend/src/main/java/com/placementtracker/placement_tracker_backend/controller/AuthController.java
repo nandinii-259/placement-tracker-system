@@ -1,5 +1,7 @@
 package com.placementtracker.placement_tracker_backend.controller;
 
+import com.placementtracker.placement_tracker_backend.dto.LoginRequestDto;
+import com.placementtracker.placement_tracker_backend.dto.LoginResponseDto;
 import com.placementtracker.placement_tracker_backend.dto.RegisterRequestDto;
 import com.placementtracker.placement_tracker_backend.dto.StudentResponseDto;
 import com.placementtracker.placement_tracker_backend.entity.Student;
@@ -40,5 +42,15 @@ public class AuthController {
         );
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto) {
+        String token = userService.login(requestDto.getEmail(), requestDto.getPassword());
+
+        var user = userService.getUserByEmail(requestDto.getEmail());
+        LoginResponseDto responseDto = new LoginResponseDto(token, user.getEmail(), user.getRole().name());
+
+        return ResponseEntity.ok(responseDto);
     }
 }

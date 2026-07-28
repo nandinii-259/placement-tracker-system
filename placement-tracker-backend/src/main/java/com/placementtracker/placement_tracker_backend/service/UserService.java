@@ -1,5 +1,6 @@
 package com.placementtracker.placement_tracker_backend.service;
 
+import com.placementtracker.placement_tracker_backend.config.JwtUtil;
 import com.placementtracker.placement_tracker_backend.entity.Student;
 import com.placementtracker.placement_tracker_backend.entity.User;
 import com.placementtracker.placement_tracker_backend.exception.BusinessRuleException;
@@ -17,12 +18,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public UserService(UserRepository userRepository, StudentRepository studentRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     public User getUserByEmail(String email) {
@@ -59,5 +62,16 @@ public class UserService {
         student.setGraduationYear(graduationYear);
 
         return studentRepository.save(student);
+    }
+
+    public String login(String email, String rawPassword) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessRuleException("Invalid email or password."));
+
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
+            throw new BusinessRuleException("Invalid email or password.");
+        }
+
+        return jwtUtil.generateToken(user.getEmail(), user.getRole().name());
     }
 }

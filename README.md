@@ -3,7 +3,7 @@
 A full-stack college placement management system with role-based access control (Student/Admin), built with Java Spring Boot, MySQL, and vanilla HTML/CSS/JS.
 
 ## Status
-In development — currently in Phase 12: Authentication and Authorization (in progress — registration and password hashing complete)
+In development — currently in Phase 12: Authentication and Authorization (in progress — registration, password hashing, and login with JWT generation complete).
 
 
 ## Documentation
@@ -25,6 +25,8 @@ In development — currently in Phase 12: Authentication and Authorization (in p
 - [Controllers - Part 6](docs/controllers-part6.md)
 - [Authenication - Part 1](docs/auth-part1.md)
 - [Authenication - Part 2](docs/auth-part2.md)
+- [Authenication - Part 3](docs/auth-part3.md)
+
 
 ## Database
 - [SQL Schema](database/schema.sql)
