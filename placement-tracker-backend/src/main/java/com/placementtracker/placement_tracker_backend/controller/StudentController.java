@@ -43,4 +43,9 @@ public class StudentController {
                 student.getGraduationYear()
         );
     }
+    @GetMapping("/by-email")
+    public ResponseEntity<StudentResponseDto> getStudentByEmail(@RequestParam String email) {
+        Student student = studentService.getStudentByEmail(email);
+        return ResponseEntity.ok(toResponseDto(student));
+    }
 }
