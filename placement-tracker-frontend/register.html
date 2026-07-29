@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register — Placement Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Student Registration</h2>
+
+        <form id="registerForm">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" required minlength="8">
+
+            <label for="branch">Branch</label>
+            <input type="text" id="branch" required>
+
+            <label for="cgpa">CGPA</label>
+            <input type="number" id="cgpa" step="0.01" min="0" max="10" required>
+
+            <label for="graduationYear">Graduation Year</label>
+            <input type="number" id="graduationYear" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p id="errorMessage" class="error-message"></p>
+        <p id="successMessage" class="success-message"></p>
+
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+
+    <script src="js/register.js"></script>
+</body>
+</html>
