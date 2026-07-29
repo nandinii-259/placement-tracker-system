@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Companies — Placement Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1>Placement Tracker (Admin)</h1>
+        <div class="nav-links">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="companies.html">Companies</a>
+            <a href="manage-jobs.html">Jobs</a>
+            <a href="manage-applications.html">Applications</a>
+            <a href="#" id="logoutLink">Logout</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <h2>Manage Companies</h2>
+
+        <div class="add-form">
+            <h3>Add New Company</h3>
+            <form id="companyForm">
+                <label for="name">Company Name</label>
+                <input type="text" id="name" required>
+
+                <label for="description">Description</label>
+                <input type="text" id="description">
+
+                <label for="website">Website</label>
+                <input type="text" id="website">
+
+                <button type="submit">Add Company</button>
+            </form>
+            <p id="statusMessage" class="error-message"></p>
+        </div>
+
+        <div id="companiesList" class="applications-list"></div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/companies.js"></script>
+</body>
+</html>
