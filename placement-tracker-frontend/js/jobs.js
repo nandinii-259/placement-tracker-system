@@ -2,6 +2,7 @@ requireLogin();
 
 let studentId = null;
 let studentCgpa = null;
+let appliedJobIds = new Set();
 
 async function loadStudentInfo() {
     const email = getEmail();
@@ -17,7 +18,16 @@ async function loadStudentInfo() {
     studentId = student.id;
     studentCgpa = student.cgpa;
 
+    await loadAppliedJobs();
     loadJobs();
+}
+
+async function loadAppliedJobs() {
+    const response = await authFetch(`${API_BASE_URL}/applications/student/${studentId}`);
+    if (!response.ok) return;
+
+    const applications = await response.json();
+    appliedJobIds = new Set(applications.map(app => app.jobId));
 }
 
 async function loadJobs() {
@@ -38,10 +48,19 @@ async function loadJobs() {
     }
 
     jobs.forEach(job => {
+        const alreadyApplied = appliedJobIds.has(job.id);
         const isEligible = studentCgpa >= job.minCgpa;
         const deadlinePassed = new Date(job.applicationDeadline) < new Date();
+        const canApply = isEligible && !deadlinePassed && !alreadyApplied;
 
-        const canApply = isEligible && !deadlinePassed;
+        let buttonLabel = "Apply";
+        let buttonClass = "";
+        if (alreadyApplied) {
+            buttonLabel = "Applied";
+            buttonClass = "applied-button";
+        } else if (deadlinePassed) {
+            buttonLabel = "Deadline Passed";
+        }
 
         const card = document.createElement("div");
         card.className = "job-card";
@@ -56,8 +75,8 @@ async function loadJobs() {
                 </span>
             </div>
             <div class="job-actions">
-                <button ${canApply ? '' : 'disabled'} onclick="applyToJob(${job.id}, this)">
-                    ${deadlinePassed ? 'Deadline Passed' : 'Apply'}
+                <button class="${buttonClass}" ${canApply ? '' : 'disabled'} onclick="applyToJob(${job.id}, this)">
+                    ${buttonLabel}
                 </button>
             </div>
         `;
@@ -83,12 +102,13 @@ async function applyToJob(jobId, button) {
             return;
         }
 
-        statusMessage.style.color = "#16a34a";
+        statusMessage.style.color = "#3f7a5c";
         statusMessage.textContent = `Successfully applied to ${data.jobTitle}!`;
 
         button.textContent = "Applied";
         button.disabled = true;
         button.classList.add("applied-button");
+        appliedJobIds.add(jobId);
 
     } catch (error) {
         statusMessage.textContent = "Could not connect to the server.";

@@ -55,15 +55,16 @@ async function loadApplications() {
             }
         }
 
-        if (app.status === "OFFERED") {
-            const offer = await fetchOffer(app.id);
-            if (offer) {
-                extraInfo += `<div class="offer-note">
-                    <strong>Offer:</strong> ${offer.positionTitle}
-                    ${offer.salaryCtc ? ' - CTC: ' + offer.salaryCtc : ''}
-                </div>`;
-            }
-        }
+       if (app.status === "OFFERED") {
+           const offer = await fetchOffer(app.id);
+           if (offer) {
+            extraInfo += `<div class="offer-note">
+            <strong>Offer:</strong> ${offer.positionTitle}
+            ${offer.salaryCtc ? ' - CTC: ' + offer.salaryCtc : ''}
+            <br><a href="offer-letter.html?applicationId=${app.id}">View Offer Letter →</a>
+        </div>`;
+    }
+}
 
         card.innerHTML = `
             <h3>${app.jobTitle}</h3>

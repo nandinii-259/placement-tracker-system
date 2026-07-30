@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Offer Letter — Placement Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar no-print">
+        <h1>Placement Tracker</h1>
+        <div class="nav-links">
+            <a href="student-dashboard.html">Dashboard</a>
+            <a href="jobs.html">Browse Jobs</a>
+            <a href="my-applications.html">My Applications</a>
+            <a href="#" id="logoutLink">Logout</a>
+        </div>
+    </nav>
+
+    <div class="letter-page">
+        <div class="letter" id="letterContent">
+            <p>Loading offer letter...</p>
+        </div>
+        <div class="letter-actions no-print">
+            <button onclick="window.print()">Print / Save as PDF</button>
+            <a href="my-applications.html">← Back to My Applications</a>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/offer-letter.js"></script>
+</body>
+</html>
