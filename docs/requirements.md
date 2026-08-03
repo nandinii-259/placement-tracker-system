@@ -148,7 +148,7 @@ Registration/login, role-based access, student profile, company CRUD, job CRUD, 
 
 ## 11. Out of Scope (Deferred — Future Enhancements)
 
-Resume upload, advanced eligibility filtering beyond CGPA, email notifications, exportable reports, AI-based features, company/recruiter self-service login, advanced pagination/sorting. These require explicit approval after the core MVP is complete.
+Resume upload, advanced eligibility filtering beyond CGPA, email notifications, exportable reports, AI-based features, company/recruiter self-service login, advanced pagination/sorting,Reason for Declining the offer if got more than one offer . These require explicit approval after the core MVP is complete.
 
 ## 12. Assumptions
 
