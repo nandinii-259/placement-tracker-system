@@ -33,6 +33,8 @@ In development — currently in Phase 13: Frontend (completed)
 - [Frontend - Part 3](docs/frontend-part3-md)
 - [Frontend - Part 4](docs/frontend-part4-md)
 - [Frontend - Part 5](docs/frontend-part5-md)
+- [Frontend - Part 6](docs/frontend-part6-md)
+
 
 
 

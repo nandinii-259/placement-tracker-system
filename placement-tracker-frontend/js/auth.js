@@ -36,3 +36,8 @@ function authFetch(url, options = {}) {
 
     return fetch(url, { ...options, headers });
 }
+
+function formatCurrency(amount) {
+    if (amount === null || amount === undefined || amount === "") return null;
+    return "₹" + Number(amount).toLocaleString('en-IN') + " per annum";
+}

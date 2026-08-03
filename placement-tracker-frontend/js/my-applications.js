@@ -55,16 +55,32 @@ async function loadApplications() {
             }
         }
 
-       if (app.status === "OFFERED") {
-           const offer = await fetchOffer(app.id);
-           if (offer) {
-            extraInfo += `<div class="offer-note">
-            <strong>Offer:</strong> ${offer.positionTitle}
-            ${offer.salaryCtc ? ' - CTC: ' + offer.salaryCtc : ''}
-            <br><a href="offer-letter.html?applicationId=${app.id}">View Offer Letter →</a>
-        </div>`;
-    }
-}
+        if (app.status === "OFFERED") {
+            const offer = await fetchOffer(app.id);
+            if (offer) {
+                let responseHtml = "";
+
+                if (offer.offerStatus === "PENDING") {
+                    responseHtml = `
+                        <div style="margin-top:10px;">
+                            <button onclick="respondToOffer(${app.id}, 'ACCEPTED')">Accept Offer</button>
+                            <button onclick="respondToOffer(${app.id}, 'REJECTED')" class="delete-button">Reject Offer</button>
+                        </div>
+                    `;
+                } else if (offer.offerStatus === "ACCEPTED") {
+                    responseHtml = `<p style="color:#3f7a5c; font-weight:600; margin-top:8px;">You have accepted this offer.</p>`;
+                } else if (offer.offerStatus === "REJECTED") {
+                    responseHtml = `<p style="color:#a23e2e; font-weight:600; margin-top:8px;">You have declined this offer.</p>`;
+                }
+
+                extraInfo += `<div class="offer-note">
+                    <strong>Offer:</strong> ${offer.positionTitle}
+                    ${offer.salaryCtc ? ' - CTC: ' + formatCurrency(offer.salaryCtc) : ''}
+                    <br><a href="offer-letter.html?applicationId=${app.id}">View Offer Letter →</a>
+                    ${responseHtml}
+                </div>`;
+            }
+        }
 
         card.innerHTML = `
             <h3>${app.jobTitle}</h3>
@@ -75,6 +91,30 @@ async function loadApplications() {
         `;
 
         list.appendChild(card);
+    }
+}
+
+async function respondToOffer(applicationId, status) {
+    const statusMessage = document.getElementById("statusMessage");
+    statusMessage.textContent = "";
+
+    try {
+        const response = await authFetch(`${API_BASE_URL}/offers/application/${applicationId}/status`, {
+            method: "PATCH",
+            body: JSON.stringify({ status })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            statusMessage.textContent = data.message || "Could not respond to offer.";
+            return;
+        }
+
+        loadApplications();
+
+    } catch (error) {
+        statusMessage.textContent = "Could not connect to the server.";
     }
 }
 

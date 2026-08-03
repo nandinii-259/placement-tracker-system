@@ -38,8 +38,7 @@ async function loadOfferLetter() {
                 and interview process through the college placement program.
             </p>
 
-            ${offer.salaryCtc ? `<p class="letter-body">Your annual compensation (CTC) will be <strong>${offer.salaryCtc}</strong>.</p>` : ''}
-
+            ${offer.salaryCtc ? `<p class="letter-body">Your annual compensation (CTC) will be <strong>${formatCurrency(offer.salaryCtc)}</strong>.</p>` : ''}
             <p class="letter-body">
                 We look forward to welcoming you to the team. Congratulations on this achievement.
             </p>

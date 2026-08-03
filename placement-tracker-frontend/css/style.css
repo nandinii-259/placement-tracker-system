@@ -529,3 +529,34 @@ a:hover {
     .letter { box-shadow: none; border: none; }
     .letter-page { margin: 0; }
 }
+.inline-form {
+    margin-top: 12px;
+    padding: 16px;
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    gap: 4px;
+}
+
+.inline-form label {
+    margin-top: 8px;
+    margin-bottom: 2px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    font-weight: 600;
+}
+
+.inline-form input, .inline-form select {
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+.inline-form button {
+    margin-top: 14px;
+    width: 100%;
+}

@@ -36,6 +36,12 @@ public class Offer {
         }
         this.createdAt = LocalDateTime.now();
     }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "offer_status", nullable = false)
+    private OfferStatus offerStatus = OfferStatus.PENDING;
+    public enum OfferStatus {
+        PENDING, ACCEPTED, REJECTED
+    }
 
     // Getters and Setters
 
@@ -81,5 +87,12 @@ public class Offer {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+    public OfferStatus getOfferStatus() {
+        return offerStatus;
+    }
+
+    public void setOfferStatus(OfferStatus offerStatus) {
+        this.offerStatus = offerStatus;
     }
 }

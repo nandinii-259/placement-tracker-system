@@ -141,9 +141,13 @@ async function submitInterview(applicationId) {
 function showOfferForm(applicationId) {
     const container = document.getElementById(`extra-form-${applicationId}`);
     container.innerHTML = `
-        <div style="margin-top:10px;">
-            <input type="text" id="position-${applicationId}" placeholder="Position title">
-            <input type="number" id="salary-${applicationId}" placeholder="Salary CTC">
+        <div class="inline-form">
+            <label>Position Title</label>
+            <input type="text" id="position-${applicationId}" placeholder="e.g. Data Analyst">
+
+            <label>Annual CTC (₹)</label>
+            <input type="number" id="salary-${applicationId}" placeholder="e.g. 600000">
+
             <button onclick="submitOffer(${applicationId})">Confirm Offer</button>
         </div>
     `;

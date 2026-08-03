@@ -42,4 +42,19 @@ public class OfferService {
         return offerRepository.findByApplicationId(applicationId)
                 .orElseThrow(() -> new ResourceNotFoundException("No offer found for this application."));
     }
+    public Offer respondToOffer(Long applicationId, Offer.OfferStatus newStatus) {
+        Offer offer = offerRepository.findByApplicationId(applicationId)
+                .orElseThrow(() -> new ResourceNotFoundException("No offer found for this application."));
+
+        if (offer.getOfferStatus() != Offer.OfferStatus.PENDING) {
+            throw new BusinessRuleException("This offer has already been " + offer.getOfferStatus().toString().toLowerCase() + ".");
+        }
+
+        if (newStatus != Offer.OfferStatus.ACCEPTED && newStatus != Offer.OfferStatus.REJECTED) {
+            throw new BusinessRuleException("Invalid response to offer.");
+        }
+
+        offer.setOfferStatus(newStatus);
+        return offerRepository.save(offer);
+    }
 }
