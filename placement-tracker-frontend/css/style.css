@@ -560,3 +560,10 @@ a:hover {
     margin-top: 14px;
     width: 100%;
 }
+
+.loading-text {
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-style: italic;
+    padding: 20px 0;
+}

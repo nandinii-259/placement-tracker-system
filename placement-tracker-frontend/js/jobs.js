@@ -31,6 +31,7 @@ async function loadAppliedJobs() {
 }
 
 async function loadJobs() {
+    showLoading("jobsList", "Loading available jobs...");
     const response = await authFetch(`${API_BASE_URL}/jobs`);
 
     if (!response.ok) {

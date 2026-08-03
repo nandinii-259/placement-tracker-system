@@ -41,3 +41,8 @@ function formatCurrency(amount) {
     if (amount === null || amount === undefined || amount === "") return null;
     return "₹" + Number(amount).toLocaleString('en-IN') + " per annum";
 }
+
+function showLoading(elementId, message = "Loading...") {
+    const el = document.getElementById(elementId);
+    if (el) el.innerHTML = `<p class="loading-text">${message}</p>`;
+}
