@@ -44,6 +44,6 @@ While integrating the Accept/Reject buttons, `respondToOffer()` was accidentally
 
 **Lesson repeated from Phase 12**: when pasting a new function into an existing file, always verify it sits at the correct nesting level (top-level vs. inside another function/loop) before assuming a "not defined" error is a typo rather than a structural placement mistake.
 
-## 7. Known Follow-Up (Not Blocking)
+## 7. Future Enhancement (Deliberately Out of Scope)
 
-An optional decline-reason field for offer rejection (mirroring BR10's rejection-reason pattern for applications) was designed at the database, service, and controller layers but deliberately deferred before frontend wiring was completed, at the user's request, to keep this session's scope manageable. The current Accept/Reject feature is fully functional and consistent end-to-end without it.
+An optional decline-reason field for offer rejection (mirroring BR10's rejection-reason pattern for applications) was scoped at the database, service, and controller layers, but explicitly designated a **future enhancement** rather than current MVP work, per project scope decision. The current Accept/Reject feature is fully functional and consistent end-to-end without it -- a rejected offer is correctly recorded, just without an accompanying reason. This mirrors the project's existing Future Enhancements list (e.g. resume upload, email notifications) rather than representing unfinished MVP work.
