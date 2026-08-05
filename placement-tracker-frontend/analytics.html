@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard — Placement Tracker</title>
+    <title>Analytics — Placement Tracker</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,29 +14,22 @@
             <a href="companies.html">Companies</a>
             <a href="manage-jobs.html">Jobs</a>
             <a href="manage-applications.html">Applications</a>
-            <a href="#" id="logoutLink">Logout</a>
-            <a href="manage-applications.html">Applications</a>
             <a href="analytics.html">Analytics</a>
+            <a href="#" id="logoutLink">Logout</a>
         </div>
     </nav>
 
     <div class="dashboard-container">
-        <h2>Welcome, Admin</h2>
+        <h2>Placement Analytics</h2>
         <p id="statusMessage" class="error-message"></p>
 
-        <div class="dashboard-cards">
-            <div class="card">
-                <h3 id="totalCompanies">0</h3>
-                <p>Companies</p>
-            </div>
-            <div class="card">
-                <h3 id="totalJobs">0</h3>
-                <p>Active Jobs</p>
-            </div>
-        </div>
+        <div class="dashboard-cards" id="statsCards"></div>
+
+        <h3 style="margin-top:36px; margin-bottom:14px;">Offers by Company</h3>
+        <div id="companyOffersList" class="applications-list"></div>
     </div>
 
     <script src="js/auth.js"></script>
-    <script src="js/admin-dashboard.js"></script>
+    <script src="js/analytics.js"></script>
 </body>
 </html>
